@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-import { evaluate } from "mathjs";
 
 function App() {
   const [val, setVal] = useState("");
@@ -10,8 +9,10 @@ function App() {
     setVal((prevVal) => prevVal + value);
   };
   const handleCalculate = () => {
-    try {
-      setVal(evaluate(val));
+        try {
+      const result = new Function('"";return (' + val + ")")();
+      console.log("Result:", result);
+      setVal(result.toString());
     } catch (error) {
       setVal("Invalid");
     }
